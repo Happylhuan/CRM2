@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+<!-- 
+	<bean id="dataSource"
+		class="org.apache.
+		commons.dbcp.BasicDataSource">
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:XE">
+		</property>
+		<property name="username" value="hr"></property>
+		<property name="password" value="hr"></property>
+	</bean -->
+
+	<bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+	   <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE" />
+	   <property name="user" value="hr" />
+	   <property name="password" value="hr" />
+	   <property name="minPoolSize" value="1" />
+	   <property name="maxPoolSize" value="20"/>  
+	   <property name="initialPoolSize" value="1"/>
+	   <property name="maxIdleTime" value="25000"/>
+	   <property name="acquireIncrement" value="1"/>
+	   <property name="acquireRetryAttempts" value="30"/>
+	   <property name="acquireRetryDelay" value="1000"/>
+	   <property name="testConnectionOnCheckin" value="true"/>
+	   <property name="testConnectionOnCheckout" value="true"/>
+	   <property name="automaticTestTable" value="c3p0TestTable"/>
+	   <property name="idleConnectionTestPeriod" value="18000"/>
+	   <property name="checkoutTimeout" value="3000"/>
+	   <property name="maxIdleTimeExcessConnections" value="20"/>
+	   <property name="maxConnectionAge" value="20"/>
+	   <property name="unreturnedConnectionTimeout" value="25"/>
+	
+    	<!-- <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+    	<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property>
+    	<property name="user" value="hr"></property>
+    	<property name="password" value="hr"></property>
+    	<property name="testConnectionOnCheckout" value="true"></property>  -->
+    </bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		 
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.OracleDialect
+				</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/huan/business/po/TsUser.hbm.xml</value>
+				<value>com/huan/business/po/TsRole.hbm.xml</value>
+				<value>com/huan/business/po/TsManage.hbm.xml</value>
+				<value>com/huan/business/po/TsOrder.hbm.xml</value>
+				<value>com/huan/business/po/TsClient.hbm.xml</value>
+				<value>com/huan/business/po/TsProduct.hbm.xml</value>
+				<value>
+					com/huan/business/po/TsProductType.hbm.xml
+				</value>
+				<value>
+					com/huan/business/po/TsProductBrand.hbm.xml
+				</value>
+				<value>com/huan/business/po/TsMainview.hbm.xml</value>
+				<value>com/huan/business/po/TsUsermain.hbm.xml</value>
+				<value>com/huan/business/po/LljLogs.hbm.xml</value>
+				<value>com/huan/business/po/LljMent.hbm.xml</value>
+				<value>com/huan/business/po/TsPower.hbm.xml</value>
+				<value>com/huan/business/po/TsNotice.hbm.xml</value></list>
+		</property></bean>
+		
+	<bean name="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="userDao" class="com.huan.business.dao.UserDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean name="userService" class="com.huan.business.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+		<property name="loginDao" ref="LoginDao"></property>
+	</bean>
+	
+	<bean name="roleDao" class="com.huan.business.dao.RoleDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="roleService" class="com.huan.business.service.RoleService">
+		<property name="roledao" ref="roleDao"></property>
+	</bean>
+	
+	<bean name="LoginDao" class="com.huan.business.dao.LoginDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="loginService" class="com.huan.business.service.LoginService">
+		<property name="loginDao" ref="LoginDao"></property>
+	</bean>
+	
+	<bean name="OrderDao"  class="com.huan.business.dao.OrderDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="orderService" class="com.huan.business.service.OrderService">
+		<property name="orderDao" ref="OrderDao"></property>
+	</bean>
+	
+	<bean name="clientDao"  class="com.huan.business.dao.ClientDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="clientService" class="com.huan.business.service.ClientService">
+		<property name="clientDao" ref="clientDao"></property>
+	</bean>
+	
+	<bean name="ProductDao"  class="com.huan.business.dao.ProductDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="productService" class="com.huan.business.service.ProductService">
+		<property name="productDao" ref="ProductDao"></property>
+	</bean>
+	
+	<bean name="MainDao"  class="com.huan.business.dao.MainDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="mainService" class="com.huan.business.service.MainService">
+		<property name="mainDao" ref="MainDao"></property>
+	</bean>
+	<bean name="UserMainDao"  class="com.huan.business.dao.UserMainDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="userMainService" class="com.huan.business.service.UserMainService">
+		<property name="userMainDao" ref="UserMainDao"></property>
+	</bean>
+	
+	<bean name="LogsDao"  class="com.huan.business.dao.LogsDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="logsService" class="com.huan.business.service.LogsService">
+		<property name="logDao" ref="LogsDao"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean name="MentDao"  class="com.huan.business.dao.MentDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="mentService" class="com.huan.business.service.MentService">
+		<property name="mentDao" ref="MentDao"></property>
+	</bean>
+	
+	<bean name="PowerDao"  class="com.huan.business.dao.PowerDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="powerService" class="com.huan.business.service.PowerService">
+		<property name="powerDao" ref="PowerDao"></property>
+	</bean>
+	
+	<bean name="NoticeDao"  class="com.huan.business.dao.NoticeDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean name="noticeService" class="com.huan.business.service.NoticeService">
+		<property name="noticeDao" ref="NoticeDao"></property>
+		<property name="loginDao" ref="LoginDao"></property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+</beans>

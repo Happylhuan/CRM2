@@ -1,0 +1,20 @@
+#MyEclipse Hibernate Properties
+#Tue May 15 17:50:54 CST 2018
+genBasicCompId=true
+sessionFactoryName=com.huan.HibernateSessionFactory
+profile=
+daoSFId=
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=false
+keyGenerator=sequence
+genVersionTag=false
+sessionFactoryId=sessionFactory
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=/CRM2/hibernate.reveng.xml
+configFile=/CRM2/src/applicationContext.xml
+createConfigFile=true

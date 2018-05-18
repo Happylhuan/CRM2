@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<!-- 当修改struts2的配置文件修改后，系统是否自动重新加载配置文件，默认为false（在生产环境下）开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 在开发模式下使用，可以打印出更加详细的日志信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 指web应用的默认编码，相当于调用request.setCharacterEncoding()方法 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+
+	<!-- 把action对象交给spring创建和管理,也就是说action中的对象创建交给spring容器进行创建 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+
+	<package name="manage" namespace="/manage" extends="struts-default">
+		<interceptors>  
+	      <interceptor name="ManageLoginInterceptor" class="com.huan.tool.ManageLoginInterceptor"/>
+	    </interceptors> 
+		<!--DMI 允许动态方法调用 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="user_*" class="com.huan.business.action.UserAction"
+			method="{1}User">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="main" >/amz/user_main.jsp</result>
+			<result name="list">/amz/user_list.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="update">/amz/user_update.jsp</result>
+			<result name="add">/amz/user_add.jsp</result>
+			<result name="userInfo">/amz/user_info.jsp</result>
+			<result name="success" type="chain" >
+				<param name="actionName">user_list</param>
+			</result>
+			<result name="successRedirect" type="redirectAction">
+				<param name="actionName">user_list</param>
+			</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="role_*" class="com.huan.business.action.RoleAction"
+			method="{1}Role">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="list">/amz/role_list.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="update">/amz/role_update.jsp</result>
+			<result name="success" type="chain">
+				<param name="actionName">role_list</param>
+			</result>
+			<result name="successRedirect" type="chain">
+				<param name="actionName">role_list</param>
+			</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="order_*" class="com.huan.business.action.OrderAction"
+			method="{1}Order">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="info">/amz/manage_order_info.jsp</result>
+			<result name="managelist">/amz/manage_order_list.jsp</result>
+			
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="product_*" class="com.huan.business.action.ProductAction"
+			method="{1}Product">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="list">/amz/product_list.jsp</result>
+			<result name="query">/amz/product_query.jsp</result>
+			<result name="add">/amz/product_add.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="update">/amz/product_update.jsp</result>
+			<result name="success" type="chain">
+				<param name="actionName">product_list</param>
+			</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="productType_*" class="com.huan.business.action.ProductTypeAction"
+			method="{1}ProductType">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="list">/amz/productType_list.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			
+			<result name="success" type="chain">
+				<param name="actionName">productType_list</param>
+			</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="productBrand_*" class="com.huan.business.action.ProductBrandAction"
+			method="{1}ProductBrand">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="list">/amz/productBrand_list.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="success" type="chain">
+				<param name="actionName">productBrand_list</param>
+			</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<action name="main_*" class="com.huan.business.action.MainAction"
+			method="{1}Main">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="view">/amz/user_main.jsp</result>
+			<result name="info">/amz/muser_info.jsp</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="*_log" class="com.huan.business.action.LogAction"
+			method="{1}Log">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="ManageList">/amz/logs_ManageList.jsp</result>
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="*_ment" class="com.huan.business.action.MentAction"
+			method="{1}Ment">
+			<result name="login">Login.jsp</result>
+			<result name="tolist" type="chain">
+				<param name="actionName">list_log</param>
+			</result>
+		</action>
+		<action name="*_notice" class="com.huan.business.action.NoticeAction"
+			method="{1}Notice">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="addNoticSuccess" type="redirectAction">
+				<param name="actionName">manage_index</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="delNoticSuccess" type="redirectAction">
+				<param name="actionName">manage_index</param>
+				<param name="namespace">/</param>
+			</result>
+			
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+	
+	<package name="user" namespace="/user" extends="struts-default">
+		<interceptors>  
+		      <interceptor name="UserLoginInterceptor" class="com.huan.tool.UserLoginInterceptor"/>
+		</interceptors> 
+			<!--DMI 允许动态方法调用 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="user_*" class="com.huan.business.action.UserAction"
+			method="{1}User">
+			<result name="userInfo">/amz/user_info.jsp</result>
+			
+		</action>
+		<action name="order_*" class="com.huan.business.action.OrderAction"
+			method="{1}Order">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="addbef">/amz/order_add.jsp</result>
+			<result name="list">/amz/order_list.jsp</result>
+			<result name="update">/amz/order_update.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="info">/amz/order_info.jsp</result>
+			<result name="successRedirect" type="redirectAction">
+				<param name="actionName">order_list</param>
+			</result>
+			<result name="success" type="chain">
+				<param name="actionName">order_list</param>
+			</result>
+			<interceptor-ref name="UserLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="client_*" class="com.huan.business.action.ClientAction"
+			method="{1}Client">
+			<result name="list">/amz/client_list.jsp</result>
+			<result name="addbef">/amz/order_add.jsp</result>
+			<result name="input">/amz/user_error.jsp</result>
+			<result name="update">/amz/client_update.jsp</result>
+			<result name="successRedirect" type="redirectAction">
+				<param name="actionName">order_list</param>
+			</result>
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="success" type="chain">
+				<param name="actionName">client_list</param>
+			</result>
+			<interceptor-ref name="UserLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="product_*" class="com.huan.business.action.ProductAction"
+			method="{1}Product">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="query">/amz/product_query.jsp</result>
+			<interceptor-ref name="UserLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="usermain_*" class="com.huan.business.action.UserMainAction"
+			method="{1}Usermain">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="edit">/amz/userEdit.jsp</result>
+			<result name="list">/amz/client_Main.jsp</result>
+			<result name="relist">/amz/userrelist.jsp</result>
+			<result name="info">/amz/client_info.jsp</result>
+			<interceptor-ref name="UserLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="*_log" class="com.huan.business.action.LogAction"
+			method="{1}Log">
+			<result name="success" type="chain">
+				<param name="actionName">list_log</param>
+			</result>
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="list">/amz/logs_list.jsp</result>
+			<result name="update">/amz/updateLog.jsp</result>
+			<interceptor-ref name="UserLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="*_ment" class="com.huan.business.action.MentAction"
+			method="{1}Ment">
+			<result name="tolist" type="chain">
+				<param name="actionName">list_log</param>
+			</result>
+		</action>
+		
+		
+	</package>
+	
+	<package name="logindefault" namespace="/" extends="struts-default">
+	    <!--DMI 允许动态方法调用 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*_Manage" class="com.huan.business.action.LoginAction"
+			method="{1}Manage">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="login">Login.jsp</result>
+			<result name="input">/page/user_error.jsp</result>	
+			<result name="managesuccess" type="redirectAction">
+				<param name="actionName">manage_index</param>
+			</result>
+			<result name="regmanagesuccess">
+				Login.jsp
+			</result>
+		</action>
+		<action name="*_User" class="com.huan.business.action.LoginAction" method="{1}User">
+			<result name="usersuccess" type="redirectAction">
+				<param name="actionName">user_index</param>
+			</result>
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="login">Login.jsp</result>
+		</action>
+		<action name="*_index" class="com.huan.business.action.LoginAction" method="{1}index">
+			<result name="manageindex">
+				/amz/index.jsp
+			</result>
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="userindex">
+				/amz/user_index.jsp
+			</result>
+			<result name="login">Login.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>
