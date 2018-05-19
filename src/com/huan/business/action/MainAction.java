@@ -4,7 +4,9 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import com.huan.business.po.TsMainview;
+import com.huan.business.po.TsManage;
 import com.huan.business.po.TsUser;
+import com.huan.business.service.ILoginService;
 import com.huan.business.service.IMainService;
 import com.huan.business.service.IUserService;
 import com.huan.tool.TotalNum;
@@ -16,7 +18,9 @@ public class MainAction extends ActionSupport implements ModelDriven<TsMainview>
 	 private List<TsMainview> mainViews;
 	 private IMainService mainService;
 	 private IUserService userService;
+	 private ILoginService loginService;
 	 private TsUser user;
+	 private TsManage manage;
 	 private TotalNum totalNum;
 	 
 	
@@ -28,7 +32,7 @@ public class MainAction extends ActionSupport implements ModelDriven<TsMainview>
 	}
 	
 	public String getinfoMain(){
-		user = userService.getUserById(user.getUserId().intValue());
+		user = userService.getUserById(user.getUserId());
 		user.setManageName(userService.getManageById(user.getManageId().intValue()).getManageName());
 		return "info";
 	}
@@ -41,6 +45,31 @@ public class MainAction extends ActionSupport implements ModelDriven<TsMainview>
 	      DecimalFormat fmt = new DecimalFormat("#0");
 	      return fmt.format(s);
 	  }
+	  /**
+		 * 用户更新资料的方法
+		 * @return
+		 */
+		public String editMain() {
+			
+			if (this.loginService.updateManage(manage)){
+				mainViews = mainService.getTopUserByOrderNum(manage.getManageId());
+				totalNum = mainService.getTotalNum(manage.getManageId());
+				return "relist";
+			} else {
+				this.addActionError("更新管理员失败");
+				return INPUT;
+			}
+		}
+		public String getupeditMain() {
+			TsManage manage1 = this.loginService.getManageById(manage.getManageId());
+			if (manage1!= null) {
+				manage = manage1;
+				return "edit";
+			} else {
+				this.addActionError("更新管理员失败");
+				return INPUT;
+			}
+		}
 	@Override
 	public TsMainview getModel() {
 		// TODO Auto-generated method stub
@@ -94,6 +123,22 @@ public class MainAction extends ActionSupport implements ModelDriven<TsMainview>
 
 		public void setMainViews(List<TsMainview> mainViews) {
 			this.mainViews = mainViews;
+		}
+
+		public ILoginService getLoginService() {
+			return loginService;
+		}
+
+		public void setLoginService(ILoginService loginService) {
+			this.loginService = loginService;
+		}
+
+		public TsManage getManage() {
+			return manage;
+		}
+
+		public void setManage(TsManage manage) {
+			this.manage = manage;
 		}
 	
 }

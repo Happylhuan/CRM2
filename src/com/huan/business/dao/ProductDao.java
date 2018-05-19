@@ -1,5 +1,6 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -355,4 +356,73 @@ public class ProductDao extends HibernateDaoSupport implements IProductDao {
 			return false;
 		}
 	}
+
+	@Override
+	public Integer getProductNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsProduct product where product.manageId='"+manageId+"'";
+			@SuppressWarnings("unchecked")
+			List<TsProduct> list = (List<TsProduct>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Integer getProductTypeNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsProductType type where type.manageId='"+manageId+"'";
+			@SuppressWarnings("unchecked")
+			List<TsProductType> list = (List<TsProductType>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Integer getProductBraNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsProductBrand brand where brand.manageId='"+manageId+"'";
+			@SuppressWarnings("unchecked")
+			List<TsProductBrand> list = (List<TsProductBrand>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Integer getProductNumByUserId(BigDecimal userId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsProduct product where product.manageId= (select manageId from TsUser where userId = "+userId+")";
+			@SuppressWarnings("unchecked")
+			List<TsProduct> list = (List<TsProduct>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

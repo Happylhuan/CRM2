@@ -2,6 +2,7 @@ package com.huan.business.action;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.huan.business.po.TsManage;
 import com.huan.business.po.TsNotice;
@@ -31,11 +32,10 @@ public class LoginAction extends ActionSupport{
 	public String  checkUser() {
 		checkFlag = loginService.CheckUser(loginName, passWord);
 		if(checkFlag){
-			int userId = userService.getUserByName(loginName).getUserId().intValue();
-			String userName = userService.getUserByName(loginName).getUserName();
-			ActionContext.getContext().getSession().put("userId", userId);
+			TsUser user = userService.getUserByName(loginName);
+			ActionContext.getContext().getSession().put("userId", user.getUserId());
 			ActionContext.getContext().getSession().remove("error");
-			ActionContext.getContext().getSession().put("userName", userName);
+			ActionContext.getContext().getSession().put("userName", user.getUserName());
 			System.out.println("---------------------------用户登录-------------------------------");
 			return "usersuccess";
 		}
@@ -65,6 +65,7 @@ public class LoginAction extends ActionSupport{
 		}
 		return "login";
 	}
+	
 	public String RegManage(){
 		 TsManage tmanage = loginService.getManageByName(manage.getManageLoginName());
 		 if(null != tmanage){
@@ -90,20 +91,31 @@ public class LoginAction extends ActionSupport{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public String  manageindex() {
 		Object manageId =  ActionContext.getContext().getSession().get("manageId");
 		if(null != manageId){
 		TsManage tmanage = loginService.getManageById((BigDecimal)manageId);
-		int	logNum = logsService.getLogsNumByManageId(tmanage.getManageId());
+		/*int	logNum = logsService.getLogsNumByManageId(tmanage.getManageId());
 		List<TsNotice> notices = noticeService.getNoticesByManageId((BigDecimal)tmanage.getManageId());
 		manageIndex.setManage(tmanage);
 		manageIndex.setLogNum(logNum);
-		manageIndex.setNotices(notices);
+		manageIndex.setNotices(notices);*/
+		Map<String, Object> indexMap = loginService.getManageIndexByManageId((BigDecimal)manageId);
+		manageIndex.setLogNum((Integer)indexMap.get("logNum"));
+		manageIndex.setNotices((List<TsNotice>)indexMap.get("notices"));
+		manageIndex.setUserNum((Integer)indexMap.get("userNum"));
+		manageIndex.setRoleNum((Integer)indexMap.get("roleNum"));
+		manageIndex.setOrderNum((Integer)indexMap.get("orderNum"));
+		manageIndex.setProductNum((Integer)indexMap.get("productNum"));
+		manageIndex.setProductBrandNum((Integer)indexMap.get("productBrandNum"));
+		manageIndex.setProductTypeNum((Integer)indexMap.get("productTypeNum"));
 		}
 		return "manageindex";
 	}
+	@SuppressWarnings("unchecked")
 	public String  userindex() {
-		Object userId =  ActionContext.getContext().getSession().get("userId");
+		/*Object userId =  ActionContext.getContext().getSession().get("userId");
 		if(null != userId){
 		TsUser tuser = userService.getUserById((Integer)userId);
 		int	logNum = logsService.getLogsNumByUserId(tuser.getUserId());
@@ -111,8 +123,24 @@ public class LoginAction extends ActionSupport{
 		userIndex.setUser(tuser);
 		userIndex.setLogNum(logNum);
 		userIndex.setNotices(notices);
+		}*/
+		Object userId =  ActionContext.getContext().getSession().get("userId");
+		if(null != userId){
+		TsUser tuser = userService.getUserById((BigDecimal)userId);
+		Map<String, Object> indexMap = loginService.getUserIndexByUserId((BigDecimal)userId);
+		userIndex.setUser(tuser);
+		userIndex.setLogNum((Integer)indexMap.get("logNum"));
+		userIndex.setClientNum((Integer)indexMap.get("clientNum"));
+		userIndex.setNotices((List<TsNotice>)indexMap.get("notices"));
+		userIndex.setOrderNum((Integer)indexMap.get("orderNum"));
+		userIndex.setProductNum((Integer)indexMap.get("productNum"));
 		}
 		return "userindex";
+	}
+	
+	public String getInfoManage() {
+		manage = loginService.getManageById(manage.getManageId());
+		return "manageInfo";
 	}
 	
 	public ILoginService getLoginService() {

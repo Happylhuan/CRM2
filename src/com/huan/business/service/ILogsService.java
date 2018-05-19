@@ -1,6 +1,8 @@
 package com.huan.business.service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import com.huan.business.po.LljLogs;
 import com.huan.tool.PageBean;
@@ -15,4 +17,5 @@ public interface ILogsService {
 	public PageModel ManageGetLogs(BigDecimal manageId,String logStateStr,PageBean page);
 	public Integer getLogsNumByUserId(BigDecimal userId);
 	public Integer getLogsNumByManageId(BigDecimal manageId);
+	
 }

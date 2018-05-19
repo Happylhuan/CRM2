@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.huan.business.po.TsClient;
+import com.huan.business.po.TsOrder;
 import com.huan.business.po.TsRole;
 import com.huan.business.po.TsUser;
 import com.huan.tool.PageBean;
@@ -132,6 +133,23 @@ public class ClientDao extends HibernateDaoSupport implements IClientDao {
 			}
 		 return name;
 		
+	}
+
+	@Override
+	public Integer getClientNumByUserId(BigDecimal userId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsClient client where client.userId = "+userId+")";
+			@SuppressWarnings("unchecked")
+			List<TsClient> list = (List<TsClient>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 

@@ -34,9 +34,10 @@ public class ProductService implements IProductService {
 			//Integer userId = productDao.getUserIdByName(product.getUserName());
 			hql += " and product.manageId ='"+product.getManageId()+"'";
 		}
-		/*if("del".equals(product.getState())){
-			hql += " and product.productId ='"+product.getProductId()+"'";
-		}*/
+		if(null!=product.getUserId()){
+			//Integer userId = productDao.getUserIdByName(product.getUserName());
+			hql += " and product.manageId = (select manageId from TsUser where userId = "+product.getUserId()+") ";
+		}
 		if("add".equals(product.getState())||"upd".equals(product.getState())){
 			product.setAddTime(null);
 			product.setProductName("");

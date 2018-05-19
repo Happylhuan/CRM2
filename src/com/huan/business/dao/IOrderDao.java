@@ -1,5 +1,7 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
+
 import com.huan.business.po.TsOrder;
 import com.huan.tool.PageBean;
 import com.huan.tool.PageModel;
@@ -17,4 +19,6 @@ public interface IOrderDao {
 
 	public Integer getUserIdByName(String userName);
 	
+	public Integer getOrderNumByManageId(BigDecimal manageId);
+	public Integer getOrderNumByUserId(BigDecimal userId);
 }

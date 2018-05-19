@@ -7,14 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.huan.business.po.LljLogs;
 import com.huan.business.po.LljMent;
-import com.huan.business.po.TsNotice;
 
 public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 
@@ -41,13 +42,14 @@ public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 				bean.setUserId(new BigDecimal(rset.getInt("user_id")));
 				bean.setLogTitle(rset.getString("log_title"));
 				bean.setUserName(rset.getString("user_name"));
-				bean.setLogAddtime(new Date(rset.getDate("log_addtime").getTime()));
+				bean.setLogAddtime(rset.getTimestamp("log_addtime"));
 				list.add(bean);
 			}
 			 if ((list != null) && (list.size() > 0)){
+				 List<LljMent> ments;
 				 for(int i=0;i<list.size();i++){
-						List<LljMent> ments = new ArrayList<LljMent>();
-						String sql2 = "select m.ment_id,m.ment_log,m.ment_time,m.log_id,m.user_id,u.user_name from llj_ment m,ts_user u where  m.user_id = u.user_id and log_id =? ";
+						 ments = new ArrayList<LljMent>();
+						String sql2 = "select m.ment_id,m.ment_log,m.ment_time,m.log_id,m.user_id,u.user_name from llj_ment m,ts_user u where  m.user_id = u.user_id and log_id =? order by ment_time desc";
 		               stmt2 = conn.prepareStatement(sql2);
 		               stmt2.setInt(1,list.get(i).getLogId().intValue());
 		               rset2= stmt2.executeQuery();
@@ -56,14 +58,12 @@ public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 	            	   mentBean.setMentId(new BigDecimal(rset2.getInt("ment_id")));
 	            	   mentBean.setMentLog(rset2.getString("MENT_LOG"));
 	            	   mentBean.setLogId(new BigDecimal(rset2.getInt("log_id")));
-	            	   //mentBean.setMentTime(rset2.getInt("user_id"));
+	            	   mentBean.setMentTime(rset2.getTimestamp("ment_time"));
 	            	   mentBean.setUserId(new BigDecimal(rset2.getInt("user_id")));
 	            	   mentBean.setUserName(rset2.getString("user_name"));
 	            	   ments.add(mentBean);
 	   				}
-	                    for (LljMent ment2 : ments) {
-	                    	list.get(i).getMents().add(ment2);
-	                    }
+		               list.get(i).setMents(ments);
 	                    rset2.close();
 	                    stmt2.close();
 	                    
@@ -86,30 +86,13 @@ public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 	@Override
 	public  boolean addLog(LljLogs log) {
 		// TODO Auto-generated method stub
-		Connection conn = BaseDao.getConnection();
-		PreparedStatement stmt = null;
-		int rset = 0;
+		
 		try {
-		stmt = conn.prepareStatement("insert into llj_logs (log_id, log_info, log_addtime, user_id, log_title,log_state,MANAGE_ID) values (LLJ_LOG_ID.NEXTVAL, ?, ?, ?,?,?,?)");
-			stmt.setString(1, log.getLogInfo());
-			stmt.setDate(2, new java.sql.Date(new Date().getTime()));
-			stmt.setInt(3,log.getUserId().intValue());
-			stmt.setString(4, log.getLogTitle());
-			stmt.setInt(5, log.getLogState()?1:0);
-			stmt.setInt(6,log.getManageId().intValue());
-			rset= stmt.executeUpdate();
-			if(0 == rset){
-				return false;
-			}
-			stmt.close();
-			return true;	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-			
-		}
-		return false;
+			this.getHibernateTemplate().save(log);
+			return true;
+		} catch (Exception e) {
+			return false;
+		} 
 	}
 
 	@Override

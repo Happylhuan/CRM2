@@ -1,9 +1,9 @@
 package com.huan.business.po;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * LljLogs entity. @author MyEclipse Persistence Tools
@@ -22,7 +22,7 @@ public class LljLogs implements java.io.Serializable {
 	private String logStateStr;
 	private String userName;
 	private BigDecimal manageId;
-	private Set<LljMent> ments = new HashSet<LljMent>();
+	private List<LljMent> ments = new ArrayList<LljMent>();
 	// Constructors
 
 	/** default constructor */
@@ -97,11 +97,11 @@ public class LljLogs implements java.io.Serializable {
 		this.userName = userName;
 	}
 
-	public Set<LljMent> getMents() {
+	public List<LljMent> getMents() {
 		return ments;
 	}
 
-	public void setMents(Set<LljMent> ments) {
+	public void setMents(List<LljMent> ments) {
 		this.ments = ments;
 	}
 

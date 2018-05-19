@@ -1,5 +1,6 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -114,7 +115,7 @@ public class UserDao implements IUserDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public TsUser getUserById(int userid) {
+	public TsUser getUserById(BigDecimal userid) {
 		
 		try {
 			String hql = " from TsUser user where 1=1 and userId="+userid+"";
@@ -130,7 +131,7 @@ public class UserDao implements IUserDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public String getUserNameById(int userid) {
+	public String getUserNameById(Integer userid) {
 		
 		try {
 			String hql = " from TsUser user where 1=1 and userId="+userid+"";
@@ -205,7 +206,7 @@ public class UserDao implements IUserDao {
 	}
 
 	@Override
-	public TsManage getManageById(int manageId) {
+	public TsManage getManageById(Integer manageId) {
 		// TODO Auto-generated method stub
 		try {
 			String hql=" from TsManage manage where manage.manageId='"+manageId+"'";
@@ -219,6 +220,25 @@ public class UserDao implements IUserDao {
 			return null;
 		}
 	}
+
+
+	@Override
+	public Integer getUserNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsUser user where user.manageId='"+manageId+"'";
+			@SuppressWarnings("unchecked")
+			List<TsUser> list = (List<TsUser>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 
 	

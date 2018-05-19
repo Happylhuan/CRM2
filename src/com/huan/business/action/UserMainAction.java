@@ -1,5 +1,6 @@
 package com.huan.business.action;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.huan.business.po.TsClient;
@@ -33,6 +34,15 @@ public class UserMainAction extends ActionSupport {
 		client = userMainService.getClientById(userMain.getClientId().intValue());
 		return "info";
 	}
+	//格式化数字显示
+	  public String formatDouble(double s){
+	      DecimalFormat fmt = new DecimalFormat("#0.00");
+	      return fmt.format(s);
+	  }
+	  public String formatOrder(double s){
+	      DecimalFormat fmt = new DecimalFormat("#0");
+	      return fmt.format(s);
+	  }
 	/**
 	 * 用户更新资料的方法
 	 * @return
@@ -50,7 +60,7 @@ public class UserMainAction extends ActionSupport {
 	}
 	public String getupeditUsermain() {
 		rolesName = this.roleService.getRoleNameById(user.getManageId());
-		TsUser luser = this.userService.getUserById(user.getUserId().intValue());
+		TsUser luser = this.userService.getUserById(user.getUserId());
 		if (luser!= null) {
 			user = luser;
 			return "edit";

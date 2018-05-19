@@ -1,5 +1,7 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
+
 import com.huan.business.po.TsManage;
 import com.huan.business.po.TsUser;
 import com.huan.tool.PageBean;
@@ -15,12 +17,14 @@ public interface  IUserDao {
 
 	public boolean updateUser(TsUser user);
 
-	public TsUser getUserById(int userid);
+	public TsUser getUserById(BigDecimal userid);
 	
 	public Integer getManageIdByName(String loginName);
 	
 	public TsUser getUserByName(String userName);
 	public Boolean delUsers(String[] ids);
-	public String getUserNameById(int userid);
-	public TsManage getManageById(int manageId);
+	public String getUserNameById(Integer userid);
+	public TsManage getManageById(Integer manageId);
+	public Integer getUserNumByManageId(BigDecimal manageId);
+	
 }

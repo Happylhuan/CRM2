@@ -8,7 +8,9 @@
     <class name="com.huan.business.po.LljMent" table="LLJ_MENT" schema="HR">
         <id name="mentId" type="java.math.BigDecimal">
             <column name="MENT_ID" precision="22" scale="0" />
-            <generator class="sequence" />
+            <generator class="sequence">
+            	<param name="sequence">llj_ment_id</param>
+            </generator>
         </id>
         <property name="mentLog" type="java.lang.String">
             <column name="MENT_LOG" />

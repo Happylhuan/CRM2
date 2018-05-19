@@ -81,7 +81,8 @@
 				<value>com/huan/business/po/LljLogs.hbm.xml</value>
 				<value>com/huan/business/po/LljMent.hbm.xml</value>
 				<value>com/huan/business/po/TsPower.hbm.xml</value>
-				<value>com/huan/business/po/TsNotice.hbm.xml</value></list>
+				<value>com/huan/business/po/TsNotice.hbm.xml</value>
+				</list>
 		</property></bean>
 		
 	<bean name="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
@@ -108,6 +109,13 @@
 	</bean>
 	<bean name="loginService" class="com.huan.business.service.LoginService">
 		<property name="loginDao" ref="LoginDao"></property>
+		<property name="roleDao" ref="roleDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="orderDao" ref="OrderDao"></property>
+		<property name="productDao" ref="ProductDao"></property>
+		<property name="noticeDao" ref="NoticeDao"></property>
+		<property name="logsDao" ref="LogsDao"></property>
+		<property name="clientDao" ref="clientDao"></property>
 	</bean>
 	
 	<bean name="OrderDao"  class="com.huan.business.dao.OrderDao">

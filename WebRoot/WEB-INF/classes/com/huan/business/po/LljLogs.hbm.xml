@@ -8,7 +8,9 @@
     <class name="com.huan.business.po.LljLogs" table="LLJ_LOGS" schema="HR">
         <id name="logId" type="java.math.BigDecimal">
             <column name="LOG_ID" precision="22" scale="0" />
-            <generator class="sequence" />
+            <generator class="sequence" >
+            	<param name="sequence">crm_log_id</param>
+            </generator>
         </id>
         <property name="logInfo" type="java.lang.String" length="2000">
             <column name="LOG_INFO" />

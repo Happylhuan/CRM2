@@ -33,7 +33,7 @@ public class LogAction extends ActionSupport implements ModelDriven<LljLogs>{
 	}
 	public String addLog() {
 		if(logsService.addLog(log)){
-			return SUCCESS;
+			return "success";
 		}else{
 			this.addActionError("添加日志失败");
 			return INPUT;
@@ -43,7 +43,7 @@ public class LogAction extends ActionSupport implements ModelDriven<LljLogs>{
 	}
 	public String delLog() {
 		if(logsService.delectLog(log)){
-			return SUCCESS;
+			return "success";
 		}else{
 			this.addActionError("添加日志失败");
 			return INPUT;

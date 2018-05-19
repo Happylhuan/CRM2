@@ -164,16 +164,24 @@ td{
                                     </div>
                                		<div class="tpl-table-images-content-block">
                                         <div >
+                         					<div  style="text-align: center;">评论</div><br>
                                            <s:iterator var="ment2" value="ments" status="s" >
-                                           		<b style="font-size: small;">${ment2.userName}</b>&nbsp;:&nbsp;${ment2.mentLog}
+                                           		<b>${ment2.userName}</b>&nbsp;:&nbsp;${ment2.mentLog}
+                                           		
                                            		<s:if test="#ment2.userId == #session.userId">
-                                           		<a style="float: right" href="<%=path%>/user/del_ment?mentId=${ment2.mentId}&page.pageNo=${pageModel.page.pageNo}&userId=${session.userId}">删除</a>
+                                           		
+                                           		<a style="float: right;font-size: small;" href="<%=path%>/user/del_ment?mentId=${ment2.mentId}&page.pageNo=${pageModel.page.pageNo}&userId=${session.userId}">删除</a>
+                                           		
 												</s:if>
-                                           		<hr>
+												<s:else>
+												<a style="float: right;font-size: small;visibility:hidden;" href="<%=path%>/user/del_ment?mentId=${ment2.mentId}&page.pageNo=${pageModel.page.pageNo}&userId=${session.userId}">删除</a>
+												</s:else>
+												<label style="float: right;font-size: small;"><s:date format="yyyy-MM-dd hh:mm" name="#ment2.mentTime"/>&nbsp;&nbsp;</label>    <hr style="padding: 0;margin: 0">
                                            	</s:iterator>
                                         </div>
                                     </div>
                          <div id="heiDiv${ss.index}"  style="width:100%;height:50px;">
+                         <br>
 			 				<form action="<%=path%>/user/add_ment?page.pageNo=${pageModel.page.pageNo}" method="post">
 				 				<input placeholder="评论" id="mentText${ss.index}"  type="text" style="width:70%;display:inline;"  onclick="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')">
 				 				<input style="display:none" name="logId" value="${logId}">

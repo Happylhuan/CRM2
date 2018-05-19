@@ -95,5 +95,16 @@ public class LoginDao extends HibernateDaoSupport implements ILoginDao {
 			return null;
 		}
 	}
+
+	@Override
+	public boolean updateManage(TsManage manage) {
+		// TODO Auto-generated method stub
+		try {
+			this.getHibernateTemplate().update(manage);
+			return true;
+		} catch (Exception e) {
+			return false;
+		} 
+	}
 	
 }

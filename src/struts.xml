@@ -37,6 +37,15 @@
 			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
         	<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
+		
+		<action name="manage_*" class="com.huan.business.action.LoginAction"
+			method="{1}Manage">
+			<result name="relogin">/amz/session.jsp</result>
+			<result name="manageInfo">/amz/manage_info.jsp</result>	
+			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
 		<action name="role_*" class="com.huan.business.action.RoleAction"
 			method="{1}Role">
 			<result name="relogin">/amz/session.jsp</result>
@@ -103,6 +112,8 @@
 			method="{1}Main">
 			<result name="relogin">/amz/session.jsp</result>
 			<result name="view">/amz/user_main.jsp</result>
+			<result name="edit">/amz/manageEdit.jsp</result>
+			<result name="relist">/amz/managerelist.jsp</result>
 			<result name="info">/amz/muser_info.jsp</result>
 			<interceptor-ref name="ManageLoginInterceptor"></interceptor-ref>  
         	<interceptor-ref name="defaultStack"></interceptor-ref>
@@ -220,13 +231,13 @@
 		
 	</package>
 	
-	<package name="logindefault" namespace="/" extends="struts-default">
+	<package name="logindefault" namespace="/" extends="struts-default ">
 	    <!--DMI 允许动态方法调用 -->
 		<global-allowed-methods>regex:.*</global-allowed-methods>
 		<action name="*_Manage" class="com.huan.business.action.LoginAction"
 			method="{1}Manage">
 			<result name="relogin">/amz/session.jsp</result>
-			<result name="login">Login.jsp</result>
+			<result name="login" >Login.jsp</result>
 			<result name="input">/page/user_error.jsp</result>	
 			<result name="managesuccess" type="redirectAction">
 				<param name="actionName">manage_index</param>

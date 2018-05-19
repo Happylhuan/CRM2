@@ -20,6 +20,6 @@ public interface  IRoleDao {
 	public TsRole getRoleById(int roleId);
 	
 	public  List<String> getRoleNameById(BigDecimal manageId);
-
+	public Integer getRoleNumByManageId(BigDecimal manageId);
 
 }

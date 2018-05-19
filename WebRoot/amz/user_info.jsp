@@ -59,6 +59,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <label> ${user.phoneNumber}</label>
                                 	</div><hr>
                                 	<div class="am-form-group">
+                                    <label for="user-email" class="am-u-sm-3 am-form-label">密码 / PassWord</label>
+                                    <label> ${user.passWord}</label>
+                                	</div><hr>
+                                	<div class="am-form-group">
+                                    <label for="user-email" class="am-u-sm-3 am-form-label">资质级别 / power</label>
+                                    <label> 
+                                    <s:if test="1 == user.power" >
+                                		   一级
+                                    </s:if>
+                                    <s:if test="2 == user.power" >
+                                		   二级
+                                    </s:if>
+                                    <s:if test="3 == user.power" >
+                                		   三级
+                                    </s:if>
+                                    <s:if test="4 == user.power" >
+                                		   四级
+                                    </s:if>
+                                    <s:if test="5 == user.power" >
+                                		   五级
+                                    </s:if>
+                                    <s:if test="6 == user.power" >
+                                		   六级
+                                    </s:if>
+                                    <s:if test="7 == user.power" >
+                                		   七级
+                                    </s:if>
+                                    <s:if test="8 == user.power" >
+                                		   八级
+                                    </s:if>
+                                    <s:if test="9 == user.power" >
+                                		   九级
+                                    </s:if>
+                                   </label>
+                                	</div><hr>
+                                	<div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">管理员 / Manage</label>
                                     <label> ${user.manageName}</label>
                                 	</div><hr>

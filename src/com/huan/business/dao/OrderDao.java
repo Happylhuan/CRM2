@@ -1,5 +1,6 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -10,6 +11,7 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.huan.business.po.TsOrder;
+import com.huan.business.po.TsProduct;
 import com.huan.business.po.TsUser;
 import com.huan.tool.PageBean;
 import com.huan.tool.PageModel;
@@ -103,6 +105,40 @@ public class OrderDao extends HibernateDaoSupport implements IOrderDao {
 			return list.get(0).getUserId().intValue();
 		}
 		return 0;
+	}
+
+	@Override
+	public Integer getOrderNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsOrder order where order.userId in (select userId from TsUser user where user.manageId = "+manageId+" )";
+			@SuppressWarnings("unchecked")
+			List<TsOrder> list = (List<TsOrder>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Integer getOrderNumByUserId(BigDecimal userId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsOrder order where order.userId = "+userId+")";
+			@SuppressWarnings("unchecked")
+			List<TsOrder> list = (List<TsOrder>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	}
 

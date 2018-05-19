@@ -17,7 +17,7 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
 <html>
 
 <head>
-     <meta charset="utf-8">
+      <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>CRM客户关系管理系统</title>
   <meta name="description" content="这是一个 index 页面">
@@ -31,12 +31,12 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
   <link rel="stylesheet" href="<%=path %>/amz/assets/css/amazeui.min.css" />
   <link rel="stylesheet" href="<%=path %>/amz/assets/css/admin.css">
   <link rel="stylesheet" href="<%=path %>/amz/assets/css/app.css">
-  <script src="<%=path %>/amz/assets/js/echarts.min.js"></script>
-    <script src="amz/assets/js/jquery.min.js"></script>
-  <script src="amz/assets/js/amazeui.min.js"></script>
-  <script src="amz/assets/js/app.js"></script>
-  <script src="amz/assets/js/main.js"></script>
-  <style>
+   <script src="amz/assets/js/echarts.min.js"></script>
+	<script src="amz/assets/js/jquery.min.js"></script>
+	<script src="amz/assets/js/amazeui.min.js"></script>
+	<script src="amz/assets/js/app.js"></script>
+	<script src="amz/assets/js/main.js"></script>
+	<style>
 ::-webkit-scrollbar {display:none}
  </style>
 </head>
@@ -58,7 +58,7 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <li onclick="lod()" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
                         <span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
                     </a>
@@ -117,25 +117,26 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
                 </li>
                 <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
 
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="manage_info.jsp"  target="mainIframe" onclick="changeTy(this.id);">
-                        <span class="tpl-header-list-user-nick"> <%=session.getAttribute("manageName") %></span><span class="tpl-header-list-user-ico"> <img src="amz/assets/img/user01.png"></span>
+                <li class="am-dropdown" onclick="changeTy(this.id)" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="tpl-header-list-link" href="<%=path%>/manage/manage_getInfo?manage.manageId=${session.manageId}"  target="mainIframe" >
+                        <span class="tpl-header-list-user-nick"> <%=session.getAttribute("manageName") %></span>
+                        <span class="tpl-header-list-user-ico"> <img src="amz/assets/img/user01.png"></span>
                     </a>
-                    
                 </li>
+              
                 <li><s:a href="Login.jsp" class="tpl-header-list-link"><span class="am-icon-sign-out tpl-header-list-ico-out-size"></span></s:a></li>
             </ul>
         </div>
     </header>
 
-    <div class="tpl-content-wrapper"  style="width:100%;margin-top:80px;padding-left:0">
-    <div class="tpl-left-nav tpl-left-nav-hover " style="width:235px;margin-left: 15px;position:absolute;">
-            <div class="tpl-left-nav-title">
+	<div class="tpl-content-wrapper"  style="width:100%;margin-top:80px;padding-left:0">
+	    <div class="tpl-left-nav tpl-left-nav-hover " style="width:235px;margin-left: 15px;position:absolute;">
+           <div class="tpl-left-nav-title">
           		功能 列表
             </div>
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
-                    <li class="tpl-left-nav-item">
+                    <li  class="tpl-left-nav-item">
                         <a id="indexMenu" href="<%=path%>/manage/main_list?manageId=${session.manageId}" target="mainIframe" onclick="changeTy(this.id);openul('product_ul')" class="nav-link active">
                             &nbsp;<i class="am-icon-home"></i>
                             &nbsp;<span>首页</span>
@@ -144,32 +145,28 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
                     <li class="tpl-left-nav-item">
                         <a id="userMenu" href="<%=path%>/manage/user_list?user.manageId=${session.manageId}" target="mainIframe" onclick="changeTy(this.id);openul('product_ul')" class="nav-link tpl-left-nav-link-list">
                             &nbsp;<i class="am-icon-user"></i>
-                            &nbsp;<span>人员管理</span>
-                            <!-- <i class="tpl-left-nav-content tpl-badge-danger">
-              				 12
-             				</i> -->
+                            &nbsp;<span>人员管理</span><i class="tpl-left-nav-content ">${manageIndex.userNum}</i>
+                           
                         </a>
                     </li>
 	
                     <li class="tpl-left-nav-item">
                         <a id="roleMenu"  href="<%=path%>/manage/role_list?role.manageId=${session.manageId}" target="mainIframe" onclick="changeTy(this.id);openul('product_ul')" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-users"></i>
-                            &nbsp;<span>角色管理</span>
+                            &nbsp;<span>角色管理</span> <i class="tpl-left-nav-content tpl-badge-warning">${manageIndex.roleNum}</i>
                         </a>
                     </li>
   					 <li class="tpl-left-nav-item">
                         <a id="orderMenu" href="<%=path%>/manage/order_managelist?manageId=${session.manageId}" target="mainIframe" onclick="changeTy(this.id);openul('product_ul')" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-columns"></i>
-                            &nbsp;<span>查看订单</span>
-                           <!--  <i class="tpl-left-nav-content tpl-badge-danger">
-              				 12
-             				</i> -->
+                            &nbsp;<span>查看订单</span><i class="tpl-left-nav-content tpl-badge-danger">${manageIndex.orderNum}</i>
+                         
                         </a>
                     </li>
                     
                     <li class="tpl-left-nav-item">
                         <!-- 打开状态 a 标签添加 active 即可   -->
-                        <a id="productMenu"  class="nav-link tpl-left-nav-link-list"   onclick="changeTy(this.id);openul('product_ul','open')" >
+                        <a id="productMenu"  class="nav-link tpl-left-nav-link-list"   onclick="changeTy(this.id);" >
                             <i class="am-icon-th-list"></i>
                             &nbsp;<span>产品管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
@@ -179,18 +176,18 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
                             <li>
                                 <a id="productMenu1" href="<%=path%>/manage/product_list?product.manageId=${session.manageId}" target="mainIframe" onclick="changeMenuTy(this.id,'productStar1')" class="menu_link">
                                     <i class="am-icon-angle-right"></i>
-                                    <span>产品</span>
+                                    <span>产品</span><i class="tpl-left-nav-content tpl-badge-default">${manageIndex.productNum}</i>
                                     <i id="productStar1" class=" am-margin-right"></i>
                                 </a>
 
                                 <a id="productMenu2" href="<%=path%>/manage/productType_list?manageId=${session.manageId}" target="mainIframe" onclick="changeMenuTy(this.id,'productStar2')" class="menu_link">
                                     <i class="am-icon-angle-right"></i>
-                                    <span>产品类型</span>
+                                    <span>产品类型</span><i class="tpl-left-nav-content tpl-badge-default">${manageIndex.productTypeNum}</i>
                                     <i id="productStar2" class=" am-margin-right"></i>
                                 </a>
                               		<a id="productMenu3" href="<%=path%>/manage/productBrand_list?manageId=${session.manageId}" target="mainIframe" onclick="changeMenuTy(this.id,'productStar3')" class="menu_link">
                                     <i class="am-icon-angle-right"></i>
-                                    <span>产品品牌</span>
+                                    <span>产品品牌</span><i class="tpl-left-nav-content tpl-badge-default">${manageIndex.productBrandNum}</i>
                                     <i id="productStar3" class=" am-margin-right"></i>
                                 </a>
                             </li>
@@ -267,6 +264,22 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
 	</div>
 </div>
 
+<!-- <button
+  type="button"
+  class="am-btn am-btn-success"
+  data-am-modal="{target: '#my-modal-loading'}">
+  Modal Loading
+</button> -->
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">正在载入...</div>
+    <div class="am-modal-bd">
+      <span class="am-icon-spinner am-icon-spin"></span>
+    </div>
+  </div>
+</div>
+
 <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
   <div class="am-modal-dialog">
     <div class="am-modal-hd">添加公告</div>
@@ -296,6 +309,7 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
 	    $('#my-prompt').modal({
 	      relatedTarget: this,
 	    });
+	    
 	  }
 	function hidWin() {
 	    $('#my-prompt').modal({
@@ -304,9 +318,23 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
 	  }
 	<%session.setAttribute("isNoticeAdd", null);%>
 
+	window.onbeforeunload=function(){
+		 $('#my-modal-loading').modal({
+	      relatedTarget: this,
+	    });
+	    setTimeout(function() {
+	    	$('#my-modal-loading').modal({
+	      relatedTarget: this,
+	    });
+	    }, 500)
+	}
+
 	</script>
-
-
+  	<script src="<%=path%>/amz/assets/js/jquery.min.js"></script>
+    <script src="<%=path%>/amz/assets/js/amazeui.min.js"></script>
+    <script src="<%=path%>/amz/assets/js/iscroll.js"></script>
+    <script src="<%=path%>/amz/assets/js/app.js"></script>
+  	
 
 </body>
 

@@ -19,7 +19,7 @@ public class TsProduct implements java.io.Serializable {
 	private BigDecimal manageId;
 	private String delEle;
 	private String state;
-
+	private BigDecimal userId;
 	// Constructors
 
 	/** default constructor */
@@ -99,6 +99,14 @@ public class TsProduct implements java.io.Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public BigDecimal getUserId() {
+		return userId;
+	}
+
+	public void setUserId(BigDecimal userId) {
+		this.userId = userId;
 	}
 
 }

@@ -38,7 +38,7 @@ public class UserAction extends ActionSupport implements ModelDriven<TsUser> {
 	 */
 	public String getupUser() {
 		rolesName = this.roleService.getRoleNameById(user.getManageId());
-		TsUser luser = this.userService.getUserById(user.getUserId().intValue());
+		TsUser luser = this.userService.getUserById(user.getUserId());
 		powerList =this.powerService.getPowerList();
 		if (luser!= null) {
 			user = luser;
@@ -86,7 +86,7 @@ public class UserAction extends ActionSupport implements ModelDriven<TsUser> {
 		}
 	}
 	public String getInfoUser() {
-		user = userService.getUserById(user.getUserId().intValue());
+		user = userService.getUserById(user.getUserId());
 		user.setManageName(userService.getManageById(user.getManageId().intValue()).getManageName());
 		return "userInfo";
 	}

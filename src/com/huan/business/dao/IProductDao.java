@@ -1,5 +1,6 @@
 package com.huan.business.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.huan.business.po.TsClient;
@@ -33,4 +34,10 @@ public interface IProductDao {
 	public boolean delProductBrand(TsProductBrand brand);
 	public boolean delsProductBrand(String[] list);
 	public List<String> getProductBrands();
+	
+	public Integer getProductNumByManageId(BigDecimal manageId);
+	public Integer getProductTypeNumByManageId(BigDecimal manageId);
+	public Integer getProductBraNumByManageId(BigDecimal manageId);
+	
+	public Integer getProductNumByUserId(BigDecimal userId);
 }

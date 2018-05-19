@@ -99,7 +99,7 @@ System.out.println("---------------------------userId:["+session.getAttribute("u
                 </li>
                   <li class=" am-dropdown" onclick="changeTy(this.id)" data-am-dropdown data-am-dropdown-toggle>
                     <a class=" tpl-header-list-link" href="<%=path%>/user/list_log?log.userId=${session.userId}"  target="mainIframe">
-                        <span class="am-icon-calendar"></span> 日志 <span class="am-badge tpl-badge-primary am-round">4</span>
+                        <span class="am-icon-calendar"></span> 日志 <span class="am-badge tpl-badge-primary am-round">${userIndex.logNum}</span>
                     </a>
                 </li>
                 <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
@@ -131,7 +131,7 @@ System.out.println("---------------------------userId:["+session.getAttribute("u
 	                    <li class="tpl-left-nav-item">
 	                        <a id="userMenu" href="<%=path%>/user/order_list?order.userId=${session.userId}" target="mainIframe" onclick="changeTy(this.id)" class="nav-link tpl-left-nav-link-list">
 	                            <i class="am-icon-columns"></i>
-	                            &nbsp;<span>订单管理</span>
+	                            &nbsp;<span>订单管理</span><i class="tpl-left-nav-content ">${userIndex.orderNum}</i>
 	                            
 	                        </a>
 	                    </li>
@@ -139,13 +139,13 @@ System.out.println("---------------------------userId:["+session.getAttribute("u
 	                    <li class="tpl-left-nav-item">
 	                        <a id="clientMenu"  href="<%=path%>/user/client_list?client.userId=${session.userId}" target="mainIframe" onclick="changeTy(this.id)" class="nav-link tpl-left-nav-link-list">
 	                            <i class="am-icon-users"></i>
-	                            &nbsp;<span>客户管理</span>
+	                            &nbsp;<span>客户管理</span><i class="tpl-left-nav-content tpl-badge-warning">${userIndex.clientNum}</i>
 	                        </a>
 	                    </li>
 	                     <li class="tpl-left-nav-item">
-	                        <a id="productMenu"  href="<%=path%>/user/product_query?product.userName=<s:property value="loginName"/>" target="mainIframe" onclick="changeTy(this.id)" class="nav-link tpl-left-nav-link-list">
+	                        <a id="productMenu"  href="<%=path%>/user/product_query?product.userId=${session.userId}" target="mainIframe" onclick="changeTy(this.id)" class="nav-link tpl-left-nav-link-list">
 	                            <i class="am-icon-th-list"></i>
-	                            &nbsp;<span>查看产品</span>
+	                            &nbsp;<span>查看产品</span><i class="tpl-left-nav-content tpl-badge-danger">${userIndex.productNum}</i>
 	                        </a>
 	                    </li>
 	

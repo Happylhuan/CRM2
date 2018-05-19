@@ -25,40 +25,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="amz/assets/css/admin.css">
 <link rel="stylesheet" href="amz/assets/css/app.css">
 <script src="amz/assets/js/echarts.min.js"></script>
+<script src="amz/assets/js/main.js"></script>
 </head>
 
 <body data-type="generalComponents">
 <div class="tpl-portlet">
-				<div class="portlet-title">
-                    <div class=" font-green bold">
-                      		<i class="am-icon-user"></i>&nbsp;人员信息
-                    </div>
-                    <hr>
-                </div>	 
+				<ol class="am-breadcrumb">
+				  <li><a href="<%=path%>/manage/main_list?manageId=${session.manageId}" onclick="changeParentTy('indexMenu');manageOpenul('product_ul')"   class="am-icon-home">首页</a></li>
+				  
+				  <li><label class="am-icon-code">管理员信息</label></li>
+				</ol>
  <div class="tpl-block ">
 
                     <div align='center' class="am-g tpl-amazeui-form">
 							  <div class="am-u-sm-12 am-u-md-9">
                                 <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">姓名 /ClientName</label>
-                                    <label> ${manageIndex.manage.manageName}</label>
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
+                                    <label> ${manage.manageName}</label>
                                 </div><hr>
 									<div class="am-form-group">
-	                                    <label for="user-email" class="am-u-sm-3 am-form-label">登录名 / LoginName</label>
-	                              <label> ${manageIndex.manage.manageLoginName}</label>
+	                                    <label for="user-email" class="am-u-sm-3 am-form-label">登录账号 / LoginName</label>
+	                              <label> ${manage.manageLoginName}</label>
+                                	</div><hr>
+                                	<div class="am-form-group">
+	                                    <label for="user-email" class="am-u-sm-3 am-form-label">密码 / password</label>
+	                              <label> ${manage.managePass}</label>
                                 	</div><hr>
                                 	
                                 	<div class="am-form-group">
                                  	<div class="am-u-sm-9 am-u-sm-push-3">
-	                                 	<a style="margin-right:25%" href="<%=path%>/user/usermain_getupedit?user.userId=${user.userId}" target="mainIframe"><input type="button" value="修改" class="am-btn am-btn-primary"/></a>
-	                                    <a href="<%=path%>/user/usermain_list?userMain.userId=${session.userId}"><input type="button" value="返回" class="am-btn am-btn-primary"/></a>
+	                                 	<a style="margin-right:25%" href="<%=path%>/manage/main_getupedit?manage.manageId=${session.manageId}" target="mainIframe"><input type="button" value="修改" class="am-btn am-btn-primary"/></a>
+	                                    <a href="<%=path%>/manage/main_list?manageId=${session.manageId}" target="mainIframe" ><input type="button" value="返回" class="am-btn am-btn-primary"/></a>
                                     </div>
                                 </div>
                                 	</div>
                            		
                         </div>
                     </div>
-               </div> </div>
+               </div> 
 </body>
 
 </html>

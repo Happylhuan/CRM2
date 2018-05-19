@@ -1,6 +1,7 @@
 package com.huan.business.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Isolation;
@@ -9,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huan.business.dao.BaseDao;
 import com.huan.business.dao.ILogsDao;
-import com.huan.business.dao.LogsDao;
 import com.huan.business.po.LljLogs;
 import com.huan.business.po.TsUser;
 import com.huan.tool.PageBean;
@@ -22,8 +22,8 @@ public class LogsService implements ILogsService{
 	@Override
 	public PageModel getLogs(BigDecimal userId,String logStateStr,PageBean page) {
 		// TODO Auto-generated method stub
-		TsUser user2 = userService.getUserById(userId.intValue());
-		String sql = "select u.user_id,u.user_name,l.manage_id,l.log_info,l.log_addtime,l.log_title,l.log_id from llj_logs l,ts_user u where l.user_id = u.user_id and l.manage_id = u.manage_id and power <="+user2.getPower()+"";
+		TsUser user2 = userService.getUserById(userId);
+		String sql = "select u.user_id,u.user_name,l.manage_id,l.log_info,l.log_addtime,l.log_title,l.log_id from llj_logs l,ts_user u where l.user_id = u.user_id and l.manage_id = u.manage_id and power <="+user2.getPower()+" ";
 		if("all".equals(logStateStr)){
 			sql += " and 1 = 1";
 		}
@@ -32,6 +32,7 @@ public class LogsService implements ILogsService{
 		}else if ("gz".equals(logStateStr)){
 			sql += " and log_state =0";
 		} 
+		sql += " order by log_addtime desc";
 		PageModel pageModel = new PageModel();
 		int totalNum = BaseDao.getTotalNum(sql);
 		int totalPage = BaseDao.getTotalPage(totalNum,pageModel.getPage().getPageSize());
@@ -46,7 +47,7 @@ public class LogsService implements ILogsService{
 	@Override
 	public PageModel ManageGetLogs(BigDecimal manageId,String logStateStr, PageBean page) {
 		// TODO Auto-generated method stub
-		String sql = "select u.user_id,u.user_name,l.manage_id,l.log_info,l.log_addtime,l.log_title,l.log_id from llj_logs l,ts_user u where l.user_id = u.user_id and l.manage_id = "+manageId+" and power <=9";
+		String sql = "select u.user_id,u.user_name,l.manage_id,l.log_info,l.log_addtime,l.log_title,l.log_id from llj_logs l,ts_user u where l.user_id = u.user_id and l.manage_id = "+manageId+" and power <=9 ";
 		if("all".equals(logStateStr)){
 			sql += " and 1 = 1";
 		}
@@ -54,7 +55,8 @@ public class LogsService implements ILogsService{
 			sql += " and log_state =1";
 		}else if ("gz".equals(logStateStr)){
 			sql += " and log_state =0";
-		} 
+		}
+		sql += " order by log_addtime DESC";
 		PageModel pageModel = new PageModel();
 		int totalNum = BaseDao.getTotalNum(sql);
 		int totalPage = BaseDao.getTotalPage(totalNum,pageModel.getPage().getPageSize());
@@ -69,10 +71,10 @@ public class LogsService implements ILogsService{
 	@Override
 	public boolean addLog(LljLogs log) {
 		// TODO Auto-generated method stub
-		TsUser user = userService.getUserById(log.getUserId().intValue());
+		TsUser user = userService.getUserById(log.getUserId());
 		log.setUserId(user.getUserId());
 		log.setManageId(user.getManageId());
-		
+		log.setLogAddtime(new Date());
 		if(logDao.addLog(log)){
 			return true;
 		}

@@ -22,4 +22,6 @@ public interface IClientDao {
 	public TsClient getClientById(Integer clientId);
 	
 	public List<String> getClientsByUserId(BigDecimal userId);
+	
+	public Integer getClientNumByUserId(BigDecimal userId);
 }

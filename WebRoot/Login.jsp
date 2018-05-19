@@ -104,13 +104,13 @@ response.setCharacterEncoding("utf-8");
 	   <form id="regForm" class="am-form" method="post" action="<%=path%>/Reg_Manage">
 	      <fieldset class="am-form-set">
 	      <table style="width: 80%;height:200px; text-align: center;margin: 0 auto;">
-	      	<tr><td>登&ensp;录&ensp;名：<input class="inputClear" style="width: 80%;float:right" name="manage.manageLoginName" type="text" placeholder="登录名" onblur="isNum('regManegeLoginNameError',this.value,'登录名');"></td></tr>
+	      	<tr><td>登&ensp;录&ensp;名：<input class="inputClear" style="width: 80%;float:right" name="manage.manageLoginName" type="text" placeholder="登录名" onblur="isNum('regManegeLoginNameError',this.value,'登录名');checkLen('regManegeLoginNameError',this.value,4,10);"></td></tr>
 	      	<tr><td><span class="check" id="regManegeLoginNameError">*</span></td></tr>
-	      	<tr><td>真实姓名：   <input class="inputClear"  style="width: 80%;float:right" name="manage.manageName" type="text" placeholder="真实姓名" onblur="isNum('regManegeNameError',this.value,'真实姓名');"></td></tr>
+	      	<tr><td>真实姓名：   <input class="inputClear"  style="width: 80%;float:right" name="manage.manageName" type="text" placeholder="真实姓名" onblur="isNum('regManegeNameError',this.value,'真实姓名');checkLen('regManegeNameError',this.value,2,5);"></td></tr>
 	      	<tr><td><span class="check" id="regManegeNameError">*</span></td></tr>
 	      	<tr><td>密&emsp;&emsp;码：  <input id="user-pass" class="inputClear" style="width: 80%;float:right" name="manage.managePass" type="password" placeholder="密码" onblur="isNum('regPassError',this.value,'密码');checkLen('regPassError',this.value,6,16)"></td></tr>
 	      	<tr><td><span class="check" id="regPassError">*</span></td></tr>
-	      	<tr><td>确认密码：  <input id="user-repass" class="inputClear" style="width: 80%;float:right" type="password" placeholder="密码" onblur="isNum('regPassError',this.value,'密码');checkLen('regRePassError',this.value,6,16);checkpass(this.value)"></td></tr>
+	      	<tr><td>确认密码：  <input id="user-repass" class="inputClear" style="width: 80%;float:right" type="password" placeholder="密码" onblur="isNum('regRePassError',this.value,'确认密码');checkLen('regRePassError',this.value,6,16);checkpass(this.value)"></td></tr>
 	      	<tr><td><span class="check" id="regRePassError">*</span></td></tr>
 	      </table>
 	      
@@ -171,8 +171,9 @@ response.setCharacterEncoding("utf-8");
 		function subLoginCheck(val){
         	var loginform = document.getElementById("loginForm");
 	      	loginform.action="<%=path%>/check_"+val;
+	      	 
         }
-        
+       
     $(function() {
     var isSuccess = '<%=(String)session.getAttribute("isSuccess")%>';
     if('isExist' == isSuccess){

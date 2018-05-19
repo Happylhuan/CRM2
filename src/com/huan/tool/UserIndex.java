@@ -8,6 +8,10 @@ import com.huan.business.po.TsUser;
 public class UserIndex {
 	private Integer  logNum;
 	private List<TsNotice> notices;
+	private Integer clientNum;
+	private Integer orderNum;
+	private Integer productNum;
+	
 	private TsUser user;
 	public Integer getLogNum() {
 		return logNum;
@@ -32,6 +36,25 @@ public class UserIndex {
 		this.logNum = logNum;
 		this.notices = notices;
 		this.user = user;
+	}
+	
+	public Integer getClientNum() {
+		return clientNum;
+	}
+	public void setClientNum(Integer clientNum) {
+		this.clientNum = clientNum;
+	}
+	public Integer getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(Integer orderNum) {
+		this.orderNum = orderNum;
+	}
+	public Integer getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(Integer productNum) {
+		this.productNum = productNum;
 	}
 	public UserIndex() {
 		super();

@@ -12,4 +12,5 @@ public interface ILoginDao {
 	public TsManage getManageByName(String manageName);
 	public boolean saveManage(TsManage manage);
 	public TsManage getManageById(BigDecimal manageId);
+	public boolean updateManage(TsManage manage);
 }

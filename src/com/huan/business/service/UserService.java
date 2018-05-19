@@ -78,7 +78,7 @@ public class UserService implements IUserService {
 		return this.userDao.delUser(user);
 	}
 	@Override
-	public TsUser getUserById(int userId) {
+	public TsUser getUserById(BigDecimal userId) {
 		return userDao.getUserById(userId);
 	}
 

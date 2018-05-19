@@ -1,5 +1,6 @@
 package com.huan.business.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Isolation;
@@ -36,6 +37,7 @@ public class MentService implements IMentService {
 	@Override
 	public boolean addMent(LljMent ment) {
 		// TODO Auto-generated method stub
+		ment.setMentTime(new Date());
 		return mentDao.addMent(ment);
 	}
 

@@ -8,7 +8,7 @@
 <html>
  <head>
   <script type="text/javascript">
-   window.top.location.href="<%=basePath%>user_index.action";
+   window.top.location.href="<%=basePath%>manage_index.action";
   </script>
  </head>
 </html>

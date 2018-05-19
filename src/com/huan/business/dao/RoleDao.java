@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.huan.business.po.TsRole;
+import com.huan.business.po.TsUser;
 import com.huan.tool.PageBean;
 import com.huan.tool.PageModel;
 
@@ -115,6 +116,23 @@ public class RoleDao extends HibernateDaoSupport implements IRoleDao {
 			// TODO: handle exception
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	@Override
+	public Integer getRoleNumByManageId(BigDecimal manageId) {
+		// TODO Auto-generated method stub
+		try {
+			String hql=" from TsRole role where role.manageId='"+manageId+"'";
+			@SuppressWarnings("unchecked")
+			List<TsRole> list = (List<TsRole>) this.getHibernateTemplate().find(hql);
+			if(list.size()!=0){
+				return list.size();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
