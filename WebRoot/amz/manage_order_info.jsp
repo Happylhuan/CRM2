@@ -35,49 +35,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="am-u-md-6 am-u-sm-12 row-mb" style="width: 100%">
  <div class="tpl-portlet">
  <div class="tpl-block ">
-<div class="caption font-green bold">
+<%-- <div class="caption font-green bold">
 					        <span class="am-icon-code"></span> LH117-${order.orderId}/订单详情
-					 </div>  <hr>
+					 </div>  <hr> --%>
+					 <ol class="am-breadcrumb">
+						  <li><a href="<%=path%>/manage/main_list?manageId=${session.manageId}" onclick="changeParentTy('indexMenu');manageOpenul('product_ul')" class="am-icon-home">首页</a></li>
+						  <li><a href="<%=path%>/manage/order_managelist?manageId=${session.manageId}" onclick="changeParentTy('orderMenu');manageOpenul('product_ul')" class="am-icon-home">订单管理</a></li>
+						  <li><label  class="am-icon-calendar">LH117-${order.orderId}/订单详情</label></li>
+					</ol>
                     <div align='center' class="am-g tpl-amazeui-form">
 							  <div class="am-u-sm-12 am-u-md-9">
 								<div class="am-form-group">
                                     <label for="user-name" class="am-u-sm-3 am-form-label">销售姓名 /UserName</label>
                                     <label> ${order.userName}</label>
-                                </div><hr>
+                                </div>
 							  
                                 <div class="am-form-group">
                                     <label for="user-name" class="am-u-sm-3 am-form-label">客户姓名 /ClientName</label>
                                     <label> ${order.clienName}</label>
-                                </div><hr>
+                                </div>
 	
                                 <div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">产品名 / ProductName</label>
                                  		<label> ${order.productName}</label>
-                                </div><hr>
+                                </div>
                                 <div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">数量/件</label>
                                  		<label> ${order.productNum}</label>
-                                </div><hr>
+                                </div>
                                 <div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">价格/元</label>
                                  		<label> ${order.productPrice}</label>
-                                </div><hr>
+                                </div>
                                 <div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">总价/元</label>
                                  		<label> ${order.totalPrice}</label>
-                                </div><hr>
+                                </div>
 									<div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">下单时间 / orderTime</label>
                                     <label> <s:date format="yyyy-MM-dd hh:mm" name="order.orderTime"/></label>
-                                	</div><hr>
+                                	</div>
                                 	<div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">发送时间 / sendTime</label>
                                      <label> <s:date format="yyyy-MM-dd hh:mm" name="order.sendTime"/></label>
-                                	</div><hr>
+                                	</div>
                                 	<div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">收货地址 / address</label>
                                    		<label> ${order.address}</label>
-                                	</div><hr>
+                                	</div>
                                 	<div class="am-form-group">
                                     <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
                                     <label> ${order.phoneNum}</label>

@@ -41,11 +41,11 @@ response.setCharacterEncoding("utf-8");
                         <span>销售额Top5</span>
                     </div>
                     <div class="actions">
-                        <ul class="actions-btn">
+                       <!--  <ul class="actions-btn">
                             <li class="purple-on">昨天</li>
                             <li class="green">前天</li>
                             <li class="dark">本周</li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="tpl-scrollable">

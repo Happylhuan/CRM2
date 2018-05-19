@@ -186,7 +186,7 @@ td{
 				 				<input placeholder="评论" id="mentText${ss.index}"  type="text" style="width:70%;display:inline;"  onclick="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')">
 				 				<input style="display:none" name="logId" value="${logId}">
 				 				<input  style="display:none" name="userId" value="${session.userId}">
-				 				<textarea  name="mentLog" rows="6" cols="5" id="mentTextarea${ss.index}" placeholder="评论" style=" width:70%;display:none"  onblur="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')"></textarea>
+				 				<textarea  name="ment.mentLog" rows="6" cols="5" id="mentTextarea${ss.index}" placeholder="评论" style=" width:70%;display:none"  onblur="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')"></textarea>
 				 				<input id="subId" onclick="inputIsNull('mentText${ss.index}','mentTextarea${ss.index}',this.id)" type="button" value="点评"/>
 				 				 <s:if test="#log.userId == #session.userId">
 				 				 <a href="<%=path%>/user/del_log?logId=${logId}&page.pageNo=${pageModel.page.pageNo}&userId=${userId}"><input type="button" value="删除/"/></a>&nbsp;

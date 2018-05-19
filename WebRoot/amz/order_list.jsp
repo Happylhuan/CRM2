@@ -106,9 +106,9 @@ td{
 									data-am-selected="{btnSize: 'sm'}">
 									<option value="clienName">输入客户名</option>
 									<option value="productName">输入产品名</option>
-									<option value="phoneNum">输入客户号码</option>
+									<option value="phoneNum">输入客户号码</option><!-- 
 									<option value="sendTime">按发送时间</option>
-									<option value="orderTime">按下单时间</option>
+									<option value="orderTime">按下单时间</option> -->
 								</select>
 								
 							</div>

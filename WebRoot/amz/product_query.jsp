@@ -84,8 +84,8 @@ td{
 								<select id="selectID" 
 									data-am-selected="{btnSize: 'sm'}">
 									<option value="productName">按产品名</option>
-									<option value="productType">按产品类型</option>
-									<option value="addTime">按添加时间</option>
+									<option value="productType">按产品类型</option><!-- 
+									<option value="addTime">按添加时间</option> -->
 									
 								</select>
 							</div>

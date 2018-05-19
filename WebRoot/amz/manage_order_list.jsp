@@ -135,8 +135,8 @@ td{
 											<td style="width:14%" class="headpro">订单号</td>
 											<td style="width:16%" class="headpro">客户名</td>
 											<td style="width:19%" class="headpro">产品名</td>
-											<td style="width:20%" class="headpro">下单时间</td>
-											<td style="width:20%" class="headpro">发送时间</td>
+											<td style="width:20%" class="headpro">创建时间</td>
+											<td style="width:20%" class="headpro">发货期限</td>
 											<td style="width:11%" class="headpro">是否发送</td>
 										</tr>
 									</thead>
@@ -156,7 +156,7 @@ td{
 												<td style="width:20%" class="pro"><s:property value="productName" /></td>
 												
 												<td style="width:20%" class="pro"><s:date format="yyyy-MM-dd hh:mm" name="orderTime"/></td>
-												<td style="width:20%" class="pro"><s:date format="yyyy-MM-dd hh:mm" name="sendTime"/></td>
+												<td style="width:20%" class="pro"><s:date format="yyyy-MM-dd " name="sendTime"/></td>
 												<td style="width:10%" class="pro">
 												<s:if test="isSend">是</s:if>
 												<s:else>否</s:else>

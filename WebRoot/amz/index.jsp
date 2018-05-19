@@ -58,7 +58,7 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-                <li onclick="lod()" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <%-- <li onclick="lod()" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
                         <span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
                     </a>
@@ -75,7 +75,7 @@ System.out.println("---------------------------manageId:["+session.getAttribute(
                             <span class="tpl-dropdown-list-fr">2天前</span>
                         </li>
                     </ul>
-                </li>
+                </li> --%>
                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;" >
                         <span class="am-icon-comment-o"></span> 公告 <span class="am-badge tpl-badge-danger am-round"><s:property value="manageIndex.notices.size()" /></span>
