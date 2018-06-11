@@ -95,16 +95,16 @@ td{
 							<div class="am-form-group">
 								<select id="selectID" 
 									data-am-selected="{btnSize: 'sm'}">
-									<option value="loginName">按登陆账号</option>
+									<!-- <option value="loginName">按登陆账号</option>
 									<option value="userName">按用户名称</option>
 									<option value="phoneNumber">按电话</option>
-									<option value="role">按角色</option>
-								</select>
+									<option value="role">按角色</option> -->
+								</select> 
 							</div>
 						</div>
 						<input style="display:none" type="text" value="<%=session.getAttribute("loginName")%>" name="manageName">
 							 	
-						<div class="am-u-sm-12 am-u-md-3">
+						<div class="am-u-sm-12 am-u-md-3" >
 							<div class="am-input-group am-input-group-sm">
 								<input value="" id="search" type="text" class="am-form-field">
 								<span class="am-input-group-btn"> 
@@ -182,12 +182,12 @@ td{
                                     </div>
                          <div id="heiDiv${ss.index}"  style="width:100%;height:50px;">
                          <br>
-			 				<form action="<%=path%>/user/add_ment?page.pageNo=${pageModel.page.pageNo}" method="post">
+			 				<form id="ment${ss.index}" action="<%=path%>/user/add_ment?page.pageNo=<s:property value="pageModel.page.pageNo"/>" method="post">
 				 				<input placeholder="评论" id="mentText${ss.index}"  type="text" style="width:70%;display:inline;"  onclick="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')">
 				 				<input style="display:none" name="logId" value="${logId}">
 				 				<input  style="display:none" name="userId" value="${session.userId}">
 				 				<textarea  name="ment.mentLog" rows="6" cols="5" id="mentTextarea${ss.index}" placeholder="评论" style=" width:70%;display:none"  onblur="change('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')"></textarea>
-				 				<input id="subId" onclick="inputIsNull('mentText${ss.index}','mentTextarea${ss.index}',this.id)" type="button" value="点评"/>
+				 				<input id="subId" onclick="inputIsNull('mentText${ss.index}','mentTextarea${ss.index}','ment${ss.index}');mustchange('mentText${ss.index}','mentTextarea${ss.index}','heiDiv${ss.index}')" type="button" value="点评"/>
 				 				 <s:if test="#log.userId == #session.userId">
 				 				 <a href="<%=path%>/user/del_log?logId=${logId}&page.pageNo=${pageModel.page.pageNo}&userId=${userId}"><input type="button" value="删除/"/></a>&nbsp;
 				 				 <a href="<%=path%>/user/updBef_log?logId=${logId}&page.pageNo=${pageModel.page.pageNo}&userId=${userId}"><input type="button" value="修改/"/></a>
@@ -204,7 +204,7 @@ td{
 				</s:iterator>
 				</ul>					
 						
-	       <%-- <div>	
+	       <div>	
 			<h6 align="left" style="color:#03a9f4;">共&nbsp;<s:property value="pageModel.page.allRows"/>&nbsp;条数据,&nbsp;&nbsp;每页&nbsp;<s:property value="pageModel.page.pageSize"/>&nbsp;条 ,&nbsp;&nbsp;共&nbsp;<s:property value="pageModel.page.totalPage"/>&nbsp;页</h6>
     		<div style="margin-left: 32%">
     		   <ul class="am-pagination tpl-pagination" >	
@@ -212,22 +212,22 @@ td{
 	    		   		<li class="am-disabled"><a >首页</a></li>&nbsp;&nbsp;&nbsp;&nbsp;<li class="am-disabled"><a >«</a></li>
 	    		   </s:if>
 	    		   <s:else>
-		    		    <li class="am-active"><a href="<%=path %>/list_log.action?page.pageNo=0&userId=<%=session.getAttribute("userId")%>&logStateStr=${logStateStr}">首页</a></li>
+		    		    <li class="am-active"><a href="<%=path %>/user/list_log?log.userId=${session.userId}&page.pageNo=0%>&logStateStr=${logStateStr}">首页</a></li>
 			            &nbsp;&nbsp;&nbsp;
-			            <li class="am-active"><a href="<%=path %>/list_log.action?page.pageNo=<s:property value="page.pageNo - 1"/>&userId=<%=session.getAttribute("userId")%>&logStateStr=${logStateStr}">«</a></li>
+			            <li class="am-active"><a href="<%=path %>/user/list_log?log.userId=${session.userId}&page.pageNo=<s:property value="page.pageNo - 1"/>&logStateStr=${logStateStr}">«</a></li>
 	    		   </s:else>
 	    		   		<li  class="am-active"><a style="background-color:gray;"><s:property value="pageModel.page.pageNo+1"/></a></li>
 	    		   <s:if test="(page.pageNo + 2) > pageModel.page.totalPage">
 	    		   		<li class="am-disabled"><a>»</a></li>&nbsp;&nbsp;&nbsp;<li class="am-disabled"><a>尾页</a></li>
 	    		   </s:if>
 	    		   <s:else>
-		    		   	<li class="am-active"><a href="<%=path %>/list_log.action?page.pageNo=<s:property value="page.pageNo + 1"/>&userId=<%=session.getAttribute("userId")%>&logStateStr=${logStateStr}">»</a></li>
+		    		   	<li class="am-active"><a href="<%=path %>/user/list_log?log.userId=${session.userId}&page.pageNo=<s:property value="page.pageNo + 1"/>&logStateStr=${logStateStr}">»</a></li>
 			            &nbsp;&nbsp;&nbsp;
-			            <li class="am-active"> <a href="<%=path %>/list_log.action?page.pageNo=<s:property value="page.totalPage -1"/>&userId=<%=session.getAttribute("userId")%>&logStateStr=${logStateStr}">尾页</a></li>
+			            <li class="am-active"> <a href="<%=path %>/user/list_log.action?page.pageNo=<s:property value="page.totalPage -1"/>&log.userId=<%=session.getAttribute("userId")%>&logStateStr=${logStateStr}">尾页</a></li>
 	    		   </s:else>
 	        	</ul>
 	        </div>
-        </div> --%>
+        </div>
         </div>
         
        		</div>
@@ -255,7 +255,23 @@ td{
 			}
 		}
 		}
-		
+		function mustchange(id1,id2,id3){
+ 		var ele= document.getElementById(id3);
+ 		var ele1 = document.getElementById(id1);
+		var ele2 = document.getElementById(id2);
+		ele2.innerHTML="";
+			if(ele1.style.display == "none"){
+				ele1.style.display="inline"
+				ele2.style.display="none"
+				ele.style.height="50px";
+				ele1.select();
+			}else{
+				ele2.style.display="inline"
+				ele1.style.display="none"
+				ele.style.height="150px";
+				ele2.select();
+			}
+		}
 	
  </script>
  </div>

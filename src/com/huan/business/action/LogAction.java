@@ -16,7 +16,7 @@ public class LogAction extends ActionSupport implements ModelDriven<LljLogs>{
 	private List<LljLogs> logs;
 	private ILogsService logsService;
 	private PageModel pageModel;
-	private PageBean page = new PageBean(0, 200);
+	private PageBean page = new PageBean(0, 10);
 	@SuppressWarnings("unchecked")
 	public String listLog() {
 		pageModel = logsService.getLogs(log.getUserId(),log.getLogStateStr(), page);

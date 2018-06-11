@@ -14,7 +14,7 @@ public class ProductBrandAction extends ActionSupport implements ModelDriven<TsP
 	private List<TsProductBrand> productBrands;
 	private IProductService productService;
 	private PageModel pageModel;
-	private PageBean page = new PageBean(1, 20);
+	private PageBean page = new PageBean(1, 7);
 	
 	@SuppressWarnings("unchecked")
 	public String  listProductBrand(){

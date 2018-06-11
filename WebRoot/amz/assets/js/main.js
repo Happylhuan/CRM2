@@ -162,9 +162,8 @@ function inputIsNull(inputId1,inputId2,eleId){
 	var ele1 = document.getElementById(inputId1).value.replace(/(^\s*)|(\s*$)/g, "");
 	var ele2 = document.getElementById(inputId2).value.replace(/(^\s*)|(\s*$)/g, "");
 	var ele3 = document.getElementById(eleId);
-	if(""!=ele1||""!=ele2){
-			ele3.setAttribute("type", "submit")
-			$("form").submit();
+	if(""!=ele2){
+		ele3.submit();
 		}else{
 			myAlert("warm-alert","评论不能为空！");
 		}	

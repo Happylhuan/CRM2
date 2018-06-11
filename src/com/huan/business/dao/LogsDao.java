@@ -49,7 +49,7 @@ public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 				 List<LljMent> ments;
 				 for(int i=0;i<list.size();i++){
 						 ments = new ArrayList<LljMent>();
-						String sql2 = "select m.ment_id,m.ment_log,m.ment_time,m.log_id,m.user_id,u.user_name from llj_ment m,ts_user u where  m.user_id = u.user_id and log_id =? order by ment_time desc";
+						String sql2 = "select m.ment_id,m.ment_log,m.ment_time,m.log_id,m.user_id,u.user_name from llj_ment m,ts_user u where  m.user_id = u.user_id and log_id =? order by ment_time asc";
 		               stmt2 = conn.prepareStatement(sql2);
 		               stmt2.setInt(1,list.get(i).getLogId().intValue());
 		               rset2= stmt2.executeQuery();
@@ -181,7 +181,7 @@ public class LogsDao extends HibernateDaoSupport implements ILogsDao {
 	@Override
 	public Integer getLogsNumByUserId(BigDecimal userId) {
 		// TODO Auto-generated method stub
-		String hql = " from LljLogs log where userId="+userId+"";
+		String hql = " from LljLogs log,TsUser user  where user.userId = log.userId and user.power <= (select power from TsUser where userId = "+userId+") ";
 		HibernateTemplate Template =  this.getHibernateTemplate();
 		@SuppressWarnings("unchecked")
 		List<LljLogs> list = (List<LljLogs>) Template.find(hql);

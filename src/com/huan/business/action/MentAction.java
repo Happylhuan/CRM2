@@ -12,7 +12,7 @@ public class MentAction extends ActionSupport implements ModelDriven<LljMent>{
 	private LljMent ment = new LljMent(); 
 	private IMentService mentService;
 	private PageModel pageModel;
-	private PageBean page = new PageBean(1, 5);
+	private PageBean page ;
 	
 	/*@SuppressWarnings("unchecked")
 	public String listLog() {
@@ -23,6 +23,7 @@ public class MentAction extends ActionSupport implements ModelDriven<LljMent>{
 	}*/
 	
 	public String addMent() {
+		page.setPageSize(10);
 		if(mentService.addMent(ment)){
 			return "tolist";
 		}else{
@@ -31,6 +32,7 @@ public class MentAction extends ActionSupport implements ModelDriven<LljMent>{
 		}
 	}
 	public String delMent() {
+		page.setPageSize(10);
 		if(mentService.delectMent(ment)){
 			return "tolist";
 		}else{

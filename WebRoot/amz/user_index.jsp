@@ -151,7 +151,7 @@ System.out.println("---------------------------userId:["+session.getAttribute("u
 	
 	 					
 	                  
-	                    <li id="LoinMenu" class="tpl-left-nav-item" onclick="clearSession('userId');changeTy(this.id)">
+	                    <li id="LoinMenu" class="tpl-left-nav-item" onclick="changeTy(this.id)">
 	                        <a  href="<%=path%>/Userdown_index" class="nav-link tpl-left-nav-link-list" >
 	                            <i class="am-icon-key"></i>
 	                            &nbsp;<span>重新登录</span>
@@ -214,12 +214,25 @@ System.out.println("---------------------------userId:["+session.getAttribute("u
 		</div>
 	</div>
 </div>
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">正在载入...</div>
+    <div class="am-modal-bd">
+      <span class="am-icon-spinner am-icon-spin"></span>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
-	setInterval("flush()",1000000);
-			function flush()
-			{
-			window.location.reload();
-			}
+	window.onbeforeunload=function(){
+		 $('#my-modal-loading').modal({
+	      relatedTarget: this,
+	    });
+	    setTimeout(function() {
+	    	$('#my-modal-loading').modal({
+	      relatedTarget: this,
+	    });
+	    }, 500)
+	}
 </script>
   	<script src="<%=path%>/amz/assets/js/jquery.min.js"></script>
     <script src="<%=path%>/amz/assets/js/amazeui.min.js"></script>

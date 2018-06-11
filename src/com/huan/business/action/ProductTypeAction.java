@@ -15,7 +15,7 @@ public class ProductTypeAction extends ActionSupport implements ModelDriven<TsPr
 	private List<TsProductType> productTypes;
 	private IProductService productService;
 	private PageModel pageModel;
-	private PageBean page = new PageBean(1, 20);
+	private PageBean page = new PageBean(1, 7);
 	
 	
 	@SuppressWarnings("unchecked")

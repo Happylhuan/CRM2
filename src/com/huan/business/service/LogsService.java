@@ -35,7 +35,7 @@ public class LogsService implements ILogsService{
 		sql += " order by log_addtime desc";
 		PageModel pageModel = new PageModel();
 		int totalNum = BaseDao.getTotalNum(sql);
-		int totalPage = BaseDao.getTotalPage(totalNum,pageModel.getPage().getPageSize());
+		int totalPage = BaseDao.getTotalPage(totalNum,page.getPageSize());
 		List<LljLogs> list = logDao.getLogs(sql, page.getPageNo(), page.getPageSize());
 		page.setAllRows(totalNum);
 		page.setTotalPage(totalPage);

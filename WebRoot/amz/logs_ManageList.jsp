@@ -96,10 +96,10 @@ td{
 							<div class="am-form-group">
 								<select id="selectID" 
 									data-am-selected="{btnSize: 'sm'}">
-									<option value="loginName">按登陆账号</option>
+									<!-- <option value="loginName">按登陆账号</option>
 									<option value="userName">按用户名称</option>
 									<option value="phoneNumber">按电话</option>
-									<option value="role">按角色</option>
+									<option value="role">按角色</option> -->
 								</select>
 							</div>
 						</div>
